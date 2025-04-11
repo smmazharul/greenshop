@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { useParams } from 'react-router-dom';
 import { categories } from '../assets/assets';
+import ProductCard from '../components/ProductCard';
 
 
 const ProductCategory = () => {
@@ -20,6 +21,20 @@ const ProductCategory = () => {
                     <div className='flex flex-col items-end w-max'>
                         <p className='text-2xl font-medium'>{searchCategory.text.toUpperCase()}</p>
                         <div className='w-16 h-0.5 bg-primary rounded-full'></div>
+                    </div>
+                )
+            }
+            {
+                filteredProducts.length > 0?(
+                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 mt-6 gap-6'>
+                        {filteredProducts.map((product)=>(
+                            <ProductCard key={product._id} product={product}/>
+                        ))}
+                    </div>
+                ):
+                (
+                    <div className='flex items-center justify-center h-[60vh'>
+                        <p className='text-2xl font-medium text-primary'>No Product Found In This Category.</p>
                     </div>
                 )
             }
