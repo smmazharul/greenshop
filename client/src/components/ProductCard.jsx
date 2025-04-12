@@ -38,12 +38,12 @@ console.log(product)
           </div>
           <div className="flex items-end justify-between mt-3">
             <p className="md:text-xl text-base font-medium text-primary">
-              {currency}${product.offerPrice}{" "}
+              {currency}{product.offerPrice}{" "}
               <span className="text-gray-500/60 md:text-sm text-xs line-through">
-                {currency}${product.price}
+                {currency}{product.price}
               </span>
             </p>
-            <div onClick={()=>{e.stopPropagation()}} className="text-primary">
+            <div onClick={(e)=>{e.stopPropagation()}} className="text-primary">
               {!cartItems[product._id] ? (
                 <button
                   className="flex items-center justify-center gap-1 bg-primary/10 border border-primary/40 md:w-[80px] w-[64px] h-[34px] rounded cursor-pointer"
