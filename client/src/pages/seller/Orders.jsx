@@ -24,15 +24,15 @@ const Orders = () => {
                 <div key={index} className="flex flex-col  md:items-center md:flex-row gap-5 justify-between p-5 max-w-4xl rounded-md border border-gray-300 ">
                     <div className="flex gap-5 max-w-80">
                         <img className="w-12 h-12 object-cover " src={assets.box_icon} alt="boxIcon" />
-                        <>
+                        <div>
                             {order.items.map((item, index) => (
                                 <div key={index} className="flex flex-col ">
                                     <p className="font-medium">
-                                        {item.product.name} <span className="text-primary">x {item.quantity}</span>
+                                        {item.product.name} {" "} <span className="text-primary">x {item.quantity}</span>
                                     </p>
                                 </div>
                             ))}
-                        </>
+                        </div>
                     </div>
 
                     <div className="text-sm md:text-base text-black/60">
@@ -40,7 +40,7 @@ const Orders = () => {
                         {order.address.firstName} {order.address.lastName}</p>
 
                         <p>{order.address.street}, {order.address.city}</p>
-                        <p> {order.address.state},{order.address.zipcode}, {order.address.country}</p>
+                        <p> {order.address.state}, {order.address.zipcode}, {order.address.country}</p>
                         <p></p>
                         <p>order.address.phone</p>
                     </div>
