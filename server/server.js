@@ -4,6 +4,8 @@ import cors from 'cors';
 import connectDB from './configs/db.js';
 import 'dotenv/config'
 import userRouter from './routes/userRoute.js';
+import bodyParser from 'body-parser';
+
 const app = express();
 
 const port = process.env.PORT || 5000;
@@ -16,6 +18,7 @@ const allowedOrigin = ['http://localhost:5173']
 // Middleware configuration
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json()); 
 app.use(cors({origin:allowedOrigin,credentials:true}))
 
 
@@ -27,7 +30,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/user',userRouter)
-// app.use('/api/login',userRouter)
+
 
 app.listen(port,()=>{
     console.log(`Server is running on port: ${port}`)
