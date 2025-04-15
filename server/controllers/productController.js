@@ -54,7 +54,7 @@ export const productById = async(req,res)=>{
 
 
 // Change  Product  inStock : /api/product/stock
-export const checkStock = async(req,res)=>{
+export const changeStock = async(req,res)=>{
 
     try {
         const {id,inStock}= req.body;
