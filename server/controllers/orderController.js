@@ -46,3 +46,15 @@ export const getUserOrders =async(req,res)=>{
         res.json({success:false,message:error.message});
     }
 }
+
+// get all order (for seller /admin): /api/order/seller
+export const getAllOrders =async(req,res)=>{
+    try {
+        const orders = await Order.find({ $or:[{paymentType:"COD"},{isPaid:true}]
+        }).populate("items.product address");
+        res.json({success:true, orders})
+    } catch (error) {
+        console.log(error.message)
+        res.json({success:false,message:error.message});
+    }
+}
