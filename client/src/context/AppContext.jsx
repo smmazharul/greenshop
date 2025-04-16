@@ -2,6 +2,7 @@ import {  createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dummyProducts } from "../assets/assets";
 import toast from "react-hot-toast";
+import axios from 'axios';
 
 export const AppContext =createContext();
 
@@ -88,7 +89,7 @@ export const AppContextProvider =({children})=>{
     },[])
 
 
-    const value={navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,cartItems,addToCart,updateCartQuantity,removeFromCart,searchQuery,setSearchQuery,getCartCount,getCartAmount}
+    const value={navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,cartItems,addToCart,updateCartQuantity,removeFromCart,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios}
     return<AppContext.Provider value={value}>
         {children}
     </AppContext.Provider>
