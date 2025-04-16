@@ -15,14 +15,49 @@ export const AppContextProvider =({children})=>{
 
     const navigate =useNavigate();
     const [user,setUser]=useState(null)
-    const [isSeller,setIsSeller]=useState(false)
+    // const [isSeller,setIsSeller]=useState(false)
     const [showUserLogin,setShowUserLogin]=useState(false)
     const [products,setProducts]=useState([])
+
+    const [isSeller, setIsSeller] = useState(() => {
+        return localStorage.getItem('isSeller') === 'true';
+    });
     
 
 
     const [cartItems,setCartItems]=useState({})
     const [searchQuery,setSearchQuery]=useState({})
+
+
+    // Persist seller status to localStorage when it changes
+    useEffect(() => {
+        localStorage.setItem('isSeller', String(isSeller));
+    }, [isSeller]);
+
+    // Fetch seller status
+
+ const fetchSeller = async()=>{
+        try {
+            const {data}=await axios.get('/api/seller/is-auth')
+            console.log(data)
+            if(data.success){
+                setIsSeller(true)
+            }else{
+                setIsSeller(false)
+            }
+        } catch (error) {
+            setIsSeller(false)
+            toast.error(error.message)
+            
+        }
+    }
+
+      // Check authentication status on page load
+      useEffect(() => {
+        if (user) {
+            fetchSeller();
+        }
+    }, []);
 
     // Fetch all products
     const fetchProducts = async()=>{
@@ -89,6 +124,7 @@ export const AppContextProvider =({children})=>{
 
     useEffect(()=>{
         fetchProducts()
+        
     },[])
 
 
