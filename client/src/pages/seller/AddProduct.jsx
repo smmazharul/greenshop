@@ -9,7 +9,7 @@ const AddProduct = () => {
     const [description,setDescription]=useState('');
     const [category,setCategory]=useState('');
     const [price ,setPrice]=useState('');
-    const [offersPrice ,setOffersPrice]=useState('');
+    const [offerPrice ,setOfferPrice]=useState('');
     // const [isSubmitting, setIsSubmitting] = useState(false);
     const {axios} = useAppContext()
 
@@ -24,7 +24,7 @@ const AddProduct = () => {
                 description: description.split('\n'),
                 category,
                 price,
-                offersPrice
+                offerPrice
             };
 
             const formData = new FormData();
@@ -44,7 +44,7 @@ const AddProduct = () => {
                 setDescription('');
                 setCategory('');
                 setPrice('');
-                setOffersPrice('');
+                setOfferPrice('');
                 setFiles([]);
             } else {
                 toast.error(data.message);
@@ -111,8 +111,8 @@ const AddProduct = () => {
                     </div>
                     <div className="flex-1 flex flex-col gap-1 w-32">
                         <label className="text-base font-medium" htmlFor="offer-price">Offer Price</label>
-                        <input onChange={(e)=>setOffersPrice(e.target.value)}
-                    value={offersPrice}
+                        <input onChange={(e)=>setOfferPrice(e.target.value)}
+                    value={offerPrice}
                          id="offer-price" type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40" required />
                     </div>
                 </div>
