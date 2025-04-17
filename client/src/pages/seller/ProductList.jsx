@@ -4,6 +4,15 @@ import { useAppContext } from "../../context/AppContext";
 const ProductList = () => {
   const { products, currency } = useAppContext();
 
+
+  const toggleStock =async()=>{
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className="no-scrollbar flex-1 h-[95v] overflow-y-scroll flex flex-col justify-between">
       <div className="w-full md:p-10 p-4">
