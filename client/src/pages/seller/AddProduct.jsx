@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { assets, categories } from '../../assets/assets';
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 import toast from 'react-hot-toast';
 const AddProduct = () => {
 
@@ -10,44 +10,50 @@ const AddProduct = () => {
     const [category,setCategory]=useState('');
     const [price ,setPrice]=useState('');
     const [offersPrice ,setOffersPrice]=useState('');
+    // const [isSubmitting, setIsSubmitting] = useState(false);
+    const {axios} = useAppContext()
 
-    const {axios} = useAppContext
 
-
-    const onSubmitHandler=async(event)=>{
+    const onSubmitHandler = async (event) => {
         try {
             event.preventDefault();
-            const productData ={
+            // setIsSubmitting(true);
+
+            const productData = {
                 name,
-                description:description.split('\n'),
+                description: description.split('\n'),
                 category,
                 price,
                 offersPrice
-            }
+            };
 
             const formData = new FormData();
-            formData.append('productData',JSON.stringify(productData));
-            for (let i = 0; i < files.length; i++) {
-                formData.append('images',files[i])
-                
-            }
-            const {data} =axios.post('/api/product/add',formData)
-            if(data.success){
-                toast.success(data.message);
-                setName('')
-                setDescription('')
-                setCategory('')
-                setPrice('')
-                setOffersPrice('')
-                setFiles([])
-            }else{
-                toast.error(data.message)
-            }
+            formData.append('productData', JSON.stringify(productData));
             
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+
+            // Need to await this request
+            const { data } = await axios.post('/api/product/add', formData);
+            
+            if (data.success) {
+                toast.success(data.message);
+                // Reset form fields
+                setName('');
+                setDescription('');
+                setCategory('');
+                setPrice('');
+                setOffersPrice('');
+                setFiles([]);
+            } else {
+                toast.error(data.message);
+            }
         } catch (error) {
-            toast.error(error.message)
+            console.error("Error adding product:", error);
+            toast.error(error.response?.data?.message || error.message);
         }
-    } 
+    }; 
 
 
     return (
