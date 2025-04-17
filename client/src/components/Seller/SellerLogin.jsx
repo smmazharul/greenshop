@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 
 const SellerLogin = () => {
-  const { isSeller, setIsSeller, navigate ,axios} = useAppContext();
+  const { isSeller, setIsSeller, navigate ,axios,isSellerLoading} = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,10 +27,17 @@ const SellerLogin = () => {
   };
 
   useEffect(() => {
-    if (isSeller) {
+    // Only redirect if authentication check is complete and user is a seller
+    if (!isSellerLoading && isSeller) {
       navigate("/seller");
     }
-  }, [isSeller]);
+  }, [isSeller, isSellerLoading, navigate]);
+
+  // Show loading state while checking authentication
+  if (isSellerLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
 
   return (
     !isSeller && (

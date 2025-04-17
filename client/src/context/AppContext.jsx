@@ -4,8 +4,8 @@ import { dummyProducts } from "../assets/assets";
 import toast from "react-hot-toast";
 import axios from 'axios';
 
-axios.defaults.withCredentials=true;
-axios.defaults.baseURL=import.meta.env.VITE_BACKEND_URL;
+axios.defaults.withCredentials = true;  // CRITICAL for sending cookies
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 export const AppContext =createContext();
 
@@ -15,49 +15,37 @@ export const AppContextProvider =({children})=>{
 
     const navigate =useNavigate();
     const [user,setUser]=useState(null)
-    // const [isSeller,setIsSeller]=useState(false)
+    const [isSeller,setIsSeller]=useState(false)
+    const [isSellerLoading, setIsSellerLoading] = useState(true); // Add loading state
     const [showUserLogin,setShowUserLogin]=useState(false)
     const [products,setProducts]=useState([])
-
-    const [isSeller, setIsSeller] = useState(() => {
-        return localStorage.getItem('isSeller') === 'true';
-    });
-    
-
 
     const [cartItems,setCartItems]=useState({})
     const [searchQuery,setSearchQuery]=useState({})
 
 
-    // Persist seller status to localStorage when it changes
-    useEffect(() => {
-        localStorage.setItem('isSeller', String(isSeller));
-    }, [isSeller]);
+    
 
     // Fetch seller status
 
  const fetchSeller = async()=>{
-        try {
-            const {data}=await axios.get('/api/seller/is-auth')
-            console.log(data)
-            if(data.success){
-                setIsSeller(true)
-            }else{
-                setIsSeller(false)
-            }
-        } catch (error) {
-            setIsSeller(false)
-            toast.error(error.message)
-            
+    setIsSellerLoading(true);
+    try {
+        const { data } = await axios.get('/api/seller/is-auth');
+        if (data.success) {
+            setIsSeller(true);
+        } else {
+            setIsSeller(false);
         }
+    } catch (error) {
+        setIsSeller(false);
+        console.error("Auth check failed:", error.message);
+    }  finally {
+        setIsSellerLoading(false);
+    }
     }
 
-      // Check authentication status on page load
-      useEffect(() => {
-        if (user) {
-            fetchSeller();
-        }
-    }, []);
+   
 
     // Fetch all products
     const fetchProducts = async()=>{
@@ -123,12 +111,13 @@ export const AppContextProvider =({children})=>{
 
 
     useEffect(()=>{
+        fetchSeller();
         fetchProducts()
         
     },[])
 
 
-    const value={navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,cartItems,addToCart,updateCartQuantity,removeFromCart,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios}
+    const value={navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,cartItems,addToCart,updateCartQuantity,removeFromCart,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios,isSellerLoading}
     return<AppContext.Provider value={value}>
         {children}
     </AppContext.Provider>
