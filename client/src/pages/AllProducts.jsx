@@ -4,6 +4,7 @@ import ProductCard from '../components/ProductCard';
 
 const AllProducts = () => {
     const {products,searchQuery}=useAppContext();
+    
     const [filteredProducts,setFilteredProducts]=useState([]);
     useEffect(()=>{
         if(searchQuery.length>0){
@@ -26,6 +27,7 @@ const AllProducts = () => {
                 {
                     filteredProducts.filter((product)=>product.inStock).map((product,index)=>(
                         <ProductCard key={index} product={product}/>
+                   
                     ))
                 }
 

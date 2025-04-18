@@ -62,7 +62,8 @@ const {axios} =useAppContext()
                     <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
                       <input
                       onClick={()=>toggleStock(product._id, !product.inStock)}
-                      checked={product.inStock}
+                      checked={product.inStock }
+
                         type="checkbox"
                         className="sr-only peer"
                         

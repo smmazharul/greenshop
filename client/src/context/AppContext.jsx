@@ -22,6 +22,7 @@ export const AppContextProvider =({children})=>{
 
     const [cartItems,setCartItems]=useState({})
     const [searchQuery,setSearchQuery]=useState({})
+    const [isLoading, setIsLoading] = useState(true);
 
 
     
@@ -51,6 +52,7 @@ export const AppContextProvider =({children})=>{
     const fetchProducts = async()=>{
         try {
             const {data}= await axios.get('/api/product/list')
+            console.log(data)
             if(data.success){
                 setProducts(data.products)
             }else{
@@ -58,6 +60,8 @@ export const AppContextProvider =({children})=>{
             }
         } catch (error) {
             toast.error(error.message)
+        }finally {
+            setIsLoading(false);
         }
     }
 
@@ -126,7 +130,7 @@ export const AppContextProvider =({children})=>{
     },[])
 
 
-    const value={navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,cartItems,addToCart,updateCartQuantity,removeFromCart,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios,isSellerLoading,fetchProducts}
+    const value={navigate,user,setUser,isSeller,setIsSeller,showUserLogin,setShowUserLogin,products,currency,cartItems,addToCart,updateCartQuantity,removeFromCart,searchQuery,setSearchQuery,getCartCount,getCartAmount,axios,isSellerLoading,fetchProducts,isLoading}
     return<AppContext.Provider value={value}>
         {children}
     </AppContext.Provider>

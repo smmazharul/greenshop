@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
     offerPrice:{type: Number, required:true},
     image:{type: Array, required:true},
     category:{type: Array, required:true},
-    isStock:{type: Boolean, default:true},
+    inStock:{type: Boolean, default:true},
 },{timestamps:true})
 
 

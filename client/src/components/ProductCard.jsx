@@ -2,7 +2,7 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 const ProductCard = ({ product }) => {
-console.log(product)
+console.log(product.name)
  
   const { currency, addToCart, cartItems,removeFromCart, navigate } =
     useAppContext();
