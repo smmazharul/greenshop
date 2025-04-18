@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const addressSchema =new mongoose.Schema({
 
     userId:{type:String,required:true},
-    fistName:{type:String,required:true},
+    firstName:{type:String,required:true},
     lastName:{type:String,required:true},
     email:{type:String,required:true},
     street:{type:String,required:true},
