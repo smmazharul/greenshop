@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
     amount: {type:Number,required:true},
     address: {type:String,required:true,ref:'address'},
     status: {type:String,default:"Order Placed"},
-    PaymentType: {type:String,required:true,default: "Cash on Delivery"},
+    PaymentType: {type:String,required:true},
     isPaid: {type:Boolean,required:true, default:false},
 },{timestamps:true})
 
