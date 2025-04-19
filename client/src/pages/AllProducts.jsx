@@ -22,7 +22,7 @@ const AllProducts = () => {
                 <div className='w-16 h-0.5 bg-primary rounded-full'></div>
             </div>
 
-            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 mt-6 gap-6'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:gap-16 lg:grid-cols-4 lg:gap-24 xl:grid-cols-6  mt-6 gap-6  '>
 
                 {
                     filteredProducts.filter((product)=>product.inStock).map((product,index)=>(
