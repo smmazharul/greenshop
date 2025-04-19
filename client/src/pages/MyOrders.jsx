@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 
 
+
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
   const { currency,axios,user } = useAppContext();
@@ -9,7 +10,7 @@ const MyOrders = () => {
   const fetchMyOrders = async () => {
     try {
       const { data } = await axios.get(`/api/order/user`);
-      console.log(data.orders)
+      
       if(data.success){
         setMyOrders(data.orders)
       }
@@ -21,10 +22,14 @@ const MyOrders = () => {
 
   useEffect(() => {
     if(user){
-console.log(user)
+
       fetchMyOrders();
     }
   }, [user]);
+
+
+
+
 
   return (
     <div className="mt-16 pb-16">
@@ -33,14 +38,15 @@ console.log(user)
       <div className="w-16 h-0.5 bg-primary rounded-full"></div>
       </div>
 
-      {myOrders.map((order, index) => (
+      {myOrders.map((order, index) =>  (
         <div
           key={index}
           className="border border-gray-300 rounded-lg mb-10 p-4 py-5 max-w-4xl"
         >
           <p className="flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col">
             <span>OrderId:{order._id}</span>
-            <span>Payment:{order.paymentType}</span>
+            <span>Payment:{order.
+PaymentType}</span>
             <span>
               Total Amount:{currency}
               {order.amount}
